@@ -85,21 +85,20 @@ the site. Otherwise, the directory is guessed from
 If called with a prefix argument, the user is asked for type of the
 created item. By default, `tpye' is post."
   (interactive
-   (list (file-name-as-directory
-	  (read-directory-name "Hexo site directory: "
-			       default-directory))
-   (if current-prefix-arg
-       (read-string "Type to create: " "post" nil "post")
-     "post")
-   (read-string "Title: ")))
+   (list (if (file-exists-p (concat default-directory "db.json"))
+	     default-directory
+	   (file-name-as-directory
+	    (read-directory-name "Hexo site directory: ")))
+	 (if current-prefix-arg
+	     (read-string "Type to create: " "post" nil "post")
+	   "post")
+	 (read-string "Title: ")))
   (let ((old-dir default-directory))
-    (if (and (file-exists-p (concat dir "db.json"))
-	     title)
-	(progn
-	  (setq default-directory dir)
-	  (hexo-wait-and-visit (start-process "hexo-new" "*Hexo New Output*" "hexo" "n" type title) 0)
-	  (setq default-directory old-dir)
-	  )
-      (error "Input directory is wrong."))))
+    (if (string= title "")
+	(error "Empty title.")
+      (progn
+	(setq default-directory dir)
+	(hexo-wait-and-visit (start-process "hexo-new" "*Hexo New Output*" "hexo" "n" type title) 0)
+	(setq default-directory old-dir)))))
 
 (provide 'hexo-utils)
