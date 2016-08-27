@@ -42,20 +42,18 @@
           '(
 	    ;; Crystal data and general instructions
 	    TITL CELL ZERR LATT SYMM SFAC DISP UNIT LAUE
-		 ;; REM
-		 MORE TIME END
-		 ;; Reflection data input
-		 HKLF OMIT SHEL BASF TWIN EXTI SWAT HOPE MERG
-		 ;; Least-squares organization
-		 L.S.
-		 CGLS BLOC DAMP STIR WGHT FVAR
-		 ;; Lists and tables
-		 BOND CONF MPLA RTAB HTAB LIST ACTA SIZE TEMP
-		 WPDB
-		 ;; Fouriers, peak search and lineprinter plots
-		 FMAP GRID PLAN MOLE
-		 )
-	  )
+	    ;; REM
+	    MORE TIME END
+	    ;; Reflection data input
+	    HKLF OMIT SHEL BASF TWIN EXTI SWAT HOPE MERG
+	    ;; Least-squares organization
+	    L.S.
+	    CGLS BLOC DAMP STIR WGHT FVAR
+	    ;; Lists and tables
+	    BOND CONF MPLA RTAB HTAB LIST ACTA SIZE TEMP
+	    WPDB
+	    ;; Fouriers, peak search and lineprinter plots
+	    FMAP GRID PLAN MOLE))
   "SHELX general keywords.")
 
 (defvar SHELX-refine-keywords
@@ -63,13 +61,11 @@
           '(
 	    ;; Atom lists and least-squares constraints
 	    SPEC RESI MOVE ANIS AFIX HFIX FRAG FEND EXYZ
-		 EADP EQIV
-		 ;; OMIT
-		 ;; The connectivity list
-		 CONN PART BIND FREE DFIX DANG BUMP SAME SADI
-		 CHIV FLAT DELU SIMU DEFS ISOR NCSY SUMP
-		 )
-	  )
+	    EADP EQIV
+	    ;; OMIT
+	    ;; The connectivity list
+	    CONN PART BIND FREE DFIX DANG BUMP SAME SADI
+	    CHIV FLAT DELU SIMU DEFS ISOR NCSY SUMP))
   "SHELX refine keywords.")
 
 ;; (regexp-opt (mapcar 'symbol-name
@@ -93,8 +89,7 @@
 	;; ("\\<\\(L\.S\.\\)\\>" . font-lock-type-face)
 	(,SHELX-refine-keywords-regexp . font-lock-keyword-face)
 	("\\<\\(REM\\).*" . font-lock-comment-face)
-	(,SHELX-elements-regexp . font-lock-variable-name-face)
-	))
+	(,SHELX-elements-regexp . font-lock-variable-name-face)))
 
 ;; (defvar SHELX-syntax-table nil "Syntax table for `SHELX-mode'.")
 ;; (setq SHELX-syntax-table
@@ -107,11 +102,17 @@
 ;;         synTable))
 
 ;; Open .ins and .res files with SHELX-mode
-
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.ins\\'" . SHELX-mode))
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.res\\'" . SHELX-mode))
+
+(defvar SHELX-mode-map
+  (let ((map (make-sparse-keymap)))
+    (set-keymap-parent map prog-mode-map)
+    (define-key map "\C-c\C-c" 'SH-adjust-AFIX)
+    map)
+  "Keymap for SHELX-mode.")
 
 ;;;###autoload
 (define-derived-mode SHELX-mode prog-mode
@@ -121,14 +122,12 @@
   
   (add-hook 'SHELX-mode-hook
 	    '(lambda ()
-	       (setq font-lock-keywords-case-fold-search t)
-	       )
-	    )
+	       (setq font-lock-keywords-case-fold-search t)))
   (set (make-local-variable 'comment-start) "REM")
   
   ;; code for syntax highlighting
   (setq font-lock-defaults '((SHELX-font-lock-keywords)))
-  )
+  (use-local-map SHELX-mode-map))
 
 ;;;###autoload
 (defun SH-adjust-AFIX ()

@@ -36,7 +36,7 @@
 
 ;;; Code:
 
-;;;###autoload
+;;;###autoload (autoload 'hexo-deploy "hexo-utils")
 (defun hexo-deploy (dir)
   "Deploy hexo site.
 If called with a prefix argument, the user is asked for directory of
@@ -60,7 +60,7 @@ the site. Otherwise, the directory is guessed from
 	      (setq default-directory (expand-file-name
 			    (concat old-dir "../../")))
 	      (start-process "hexo-deploy"
-			     "*Hexo*" "hexo" "d" "-g")
+			     "*Hexo Deploy Output*" "hexo" "d" "-g")
 	      (setq default-directory old-dir))
 	  (error "Hexo deploy failed. Wrong directory?"))))))
 
@@ -79,20 +79,23 @@ the site. Otherwise, the directory is guessed from
     (when (< max 5)
 	(run-with-timer 6 nil `(lambda () (funcall 'hexo-wait-and-visit ,proc ,(1+ max)))))))
 
-;;;###autoload
+;;;###autoload (autoload 'hexo-new "hexo-utils")
 (defun hexo-new (dir type title)
   "Create an hexo draft/page/photo/post/.
 If called with a prefix argument, the user is asked for type of the
 created item. By default, `tpye' is post."
   (interactive
-   (list (if (file-exists-p (concat default-directory "db.json"))
-	     default-directory
-	   (file-name-as-directory
-	    (read-directory-name "Hexo site directory: ")))
-	 (if current-prefix-arg
-	     (read-string "Type to create: " "post" nil "post")
-	   "post")
-	 (read-string "Title: ")))
+   (list
+    (cond
+     ((file-exists-p (concat default-directory "db.json")) default-directory)
+     ((file-exists-p (concat default-directory "../../db.json"))
+      (expand-file-name (concat default-directory "../../")))
+     (t (file-name-as-directory
+	 (read-directory-name "Hexo site directory: "))))
+    (if current-prefix-arg
+	(read-string "Type to create: " "post" nil "post")
+      "post")
+    (read-string "Title: ")))
   (let ((old-dir default-directory))
     (if (string= title "")
 	(error "Empty title.")
