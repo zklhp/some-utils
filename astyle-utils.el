@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;; astyle-utils.el --- Functions for using astyle in Emacs.
 
 ;; Copyright (C) 2015 Chris Zheng.

@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;; emoji.el --- Input method for emoji
 
 ;; Copyright (C) 2015 Chris Zheng.

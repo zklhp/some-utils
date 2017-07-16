@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;; bc-mode.el --- Inferior mode for GNU bc
 
 ;; Copyright (C) 2015 Chris Zheng.

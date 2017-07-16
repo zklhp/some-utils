@@ -115,14 +115,15 @@
   "Keymap for SHELX-mode.")
 
 ;;;###autoload
-(define-derived-mode SHELX-mode prog-mode
+(define-derived-mode SHELX-mode fundamental-mode
   "SHELX mode"
   "Major mode for editing SHELX .ins and .res files"
   ;; :syntax-table SHELX-syntax-table
   
-  (add-hook 'SHELX-mode-hook
-	    '(lambda ()
-	       (setq font-lock-keywords-case-fold-search t)))
+  ;; (add-hook 'SHELX-mode-hook
+  ;; 	    '(lambda ()))
+  (setq font-lock-keywords-case-fold-search t)
+  
   (set (make-local-variable 'comment-start) "REM")
   
   ;; code for syntax highlighting

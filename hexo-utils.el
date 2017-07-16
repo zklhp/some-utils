@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;; hexo-utils.el --- Functions for using Hexo under Emacs.
 
 ;; Copyright (C) 2015 Chris Zheng.
