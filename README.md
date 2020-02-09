@@ -1,7 +1,13 @@
-# Some utiles #
+# Some utilities written by me #
 
-+ `astyle-utils.el`: Use astyle in Emacs.
-+ `hexo-utils.el`: Use Hexo more efficiently.
-+ `SHELX-mode.el`: A mode for edit SHELX files.
-+ `emoji.el`: A mode for edit SHELX files.
-+ `bc-mode.el`: Use GNU bc in Emacs.
+May not be useful for you. For educational purposes.
+
+- `SHELX-mode.el`: A mode for edit SHELX (http://shelx.uni-ac.gwdg.de/) files.
+- `astyle-utils.el`: Use astyle in Emacs.
+- `hexo-utils.el`: Use Hexo more efficiently.
+- `emoji.el`: Emoji input method. **Not working.**
+- `bc-mode.el`: Use GNU bc in Emacs.
+
+# License #
+
+The license is GPLv3 for code written by me.
