@@ -2,7 +2,7 @@
 
 May not be useful for you. For educational purposes.
 
-- `SHELX-mode.el`: A mode for edit SHELX (http://shelx.uni-ac.gwdg.de/) files.
+- `SHELX-mode.el`: A mode for edit SHELX (http://shelx.uni-goettingen.de/) files.
 - `astyle-utils.el`: Use astyle in Emacs.
 - `hexo-utils.el`: Use Hexo more efficiently.
 - `emoji.el`: Emoji input method. **Not working.**
